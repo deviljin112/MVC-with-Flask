@@ -1,5 +1,5 @@
 # Imports flask into the project
-from flask import Flask, jsonify, redirect, url_for, render_template
+from flask import Flask, jsonify, redirect, url_for, render_template, request
 
 # Creates a flask instance
 app = Flask(__name__)
@@ -18,7 +18,7 @@ students = [
 # "/" means home directory
 @app.route("/")
 def home():
-    return "<h1>This is a dream team of DevOps consultants celebrating a WOW moment!!!</h1>"
+    return render_template("index.html", page_name="Index Page")
 
 
 # This route will create a new GET route to our link
@@ -31,7 +31,7 @@ def student_data():
 
 @app.route("/welcome/")
 def welcome_screen():
-    return "Welcome to the DevOps Team!"
+    return render_template("welcome.html", page_name="Welcome Page")
 
 
 # Generic error handling for any error will redirect to welcome page
@@ -45,22 +45,23 @@ def handle_not_found(error):
 # Creates a dynamic page using the <username> variable that is provided by the user
 @app.route("/login/<username>/")
 def welcome_user(username):
-    return f"Welcome to the dream team of DevOps, {username}"
+    return render_template("greeting.html", page_name="Greeting", user=username)
 
 
-@app.route("/login/")
+@app.route("/login/", methods=["GET", "POST"])
 def login():
-    return render_template("login.html", title="Login Page", page_name="Login")
-
-
-@app.route("/index/")
-def index():
-    return render_template("index.html", title="Index Page", page_name="Index")
+    error = None
+    if request.method == "POST":
+        if request.form["username"] != "admin" or request.form["password"] != "admin":
+            error = "Invalid Credentials. Please Try Again!"
+        else:
+            return redirect(url_for("welcome_user", username=request.form["username"]))
+    return render_template("login.html", page_name="Login", error=error)
 
 
 @app.route("/base/")
 def base():
-    return render_template("base.html")
+    return render_template("base.html", page_name="Base")
 
 
 if __name__ == "__main__":
