@@ -52,13 +52,17 @@ def welcome_user(username):
 def login():
     error = None
     if request.method == "POST":
+        # Checks is user and password provided is "admin"
         if request.form["username"] != "admin" or request.form["password"] != "admin":
+            # If not shows the error
             error = "Invalid Credentials. Please Try Again!"
         else:
+            # Redirects to the welcome user page and passes the username as argument
             return redirect(url_for("welcome_user", username=request.form["username"]))
     return render_template("login.html", page_name="Login", error=error)
 
 
+# Base html file used to check that it works
 @app.route("/base/")
 def base():
     return render_template("base.html", page_name="Base")
