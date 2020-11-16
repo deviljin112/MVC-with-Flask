@@ -48,3 +48,18 @@ if __name__ == "__main__":
     # Runs the application
     app.run()
 ```
+
+## Interacting with HTML
+
+- Naming conventions are essential
+- We need to create templates folder in our dir
+- Flask looks for a templates folder and anything inside the folder
+- We will create index.html inside our templates folder
+
+## Task
+
+- create a base.html file in templates folder
+- copy index.html to base.html
+- google how to extend code from base.html to index.html
+- Create text boxes for login form
+- search and find out syntax to write a for loop in index.html

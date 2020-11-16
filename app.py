@@ -1,5 +1,5 @@
 # Imports flask into the project
-from flask import Flask, jsonify, redirect, url_for
+from flask import Flask, jsonify, redirect, url_for, render_template
 
 # Creates a flask instance
 app = Flask(__name__)
@@ -43,9 +43,24 @@ def handle_not_found(error):
 
 
 # Creates a dynamic page using the <username> variable that is provided by the user
-@app.route("/user/<username>/")
+@app.route("/login/<username>/")
 def welcome_user(username):
     return f"Welcome to the dream team of DevOps, {username}"
+
+
+@app.route("/login/")
+def login():
+    return render_template("login.html", title="Login Page", page_name="Login")
+
+
+@app.route("/index/")
+def index():
+    return render_template("index.html", title="Index Page", page_name="Index")
+
+
+@app.route("/base/")
+def base():
+    return render_template("base.html")
 
 
 if __name__ == "__main__":
