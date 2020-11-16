@@ -1,5 +1,5 @@
 # Imports flask into the project
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect, url_for
 
 # Creates a flask instance
 app = Flask(__name__)
@@ -18,15 +18,34 @@ students = [
 # "/" means home directory
 @app.route("/")
 def home():
-    return "Hello World"
+    return "<h1>This is a dream team of DevOps consultants celebrating a WOW moment!!!</h1>"
 
 
 # This route will create a new GET route to our link
 # accessible at http://127.0.0.1:5000/api/v1/student/data
-@app.route("/api/v1/student/data", methods=["GET"])
+@app.route("/api/v1/student/data/", methods=["GET"])
 def student_data():
     # ETL = Extract Transform Load
     return jsonify(students)  # Transforms data into JSON
+
+
+@app.route("/welcome/")
+def welcome_screen():
+    return "Welcome to the DevOps Team!"
+
+
+# Generic error handling for any error will redirect to welcome page
+@app.errorhandler(Exception)
+def handle_not_found(error):
+    # Redirect, moves the user to a specified webside
+    # usr_for takes an argument of the function in the app rather than url
+    return redirect(url_for("welcome_screen"))
+
+
+# Creates a dynamic page using the <username> variable that is provided by the user
+@app.route("/user/<username>/")
+def welcome_user(username):
+    return f"Welcome to the dream team of DevOps, {username}"
 
 
 if __name__ == "__main__":
