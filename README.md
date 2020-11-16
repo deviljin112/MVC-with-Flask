@@ -30,3 +30,21 @@ Display data from Python Flask to specifc API call / URL / End point
 - How to run flask app
 
 `flask run`
+
+### Code Example
+
+Importing flask into a project.
+
+`from flask import Flask`
+
+Initialising flask application in the project.
+
+`app = Flask(__name__)`
+
+Wrapping the run function.
+
+```python
+if __name__ == "__main__":
+    # Runs the application
+    app.run()
+```
